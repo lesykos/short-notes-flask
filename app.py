@@ -33,6 +33,11 @@ def index():
     notes = db.session.execute(db.select(Note).order_by(Note.id.desc())).scalars()
     return render_template("index.html", notes = notes)
 
+@app.route("/note/<int:id>")
+def show(id):
+    note = db.get_or_404(Note, id)
+    return render_template("notes/show.html", note=note)
+
 @app.route("/new", methods=["GET", "POST"])
 def new():
     if request.method == "POST":
