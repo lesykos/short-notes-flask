@@ -48,6 +48,17 @@ def new():
 
     return render_template("notes/new.html")
 
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit(id):
+    note = db.get_or_404(Note, id)
+
+    if request.method == "POST":
+        note.content = request.form["content"]
+        db.session.commit()
+        return redirect(url_for("show", id=note.id))
+
+    return render_template("notes/edit.html", note=note)
+
 if __name__ == "__main__":
     # run the application on the local dev server
     app.run(debug=True)

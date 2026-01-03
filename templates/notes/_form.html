@@ -2,7 +2,7 @@
   <div class="mb-2">
     <textarea class="form-control form-control-lg" 
               id="note-textarea" rows="3" maxlength="200"
-              name="content" placeholder="What's on your mind?"></textarea>
+              name="content" placeholder="What's on your mind?">{% if note %}{{ note.content }}{% endif %}</textarea>
     <div class="form-text">
       <span id="note-chars-count">0</span> / 200
     </div>

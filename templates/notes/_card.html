@@ -26,7 +26,10 @@
         </figure>
 
         <p class="card-text">
-            <small class="text-body-secondary">Share on <a href="https://www.facebook.com/">Facebook</a></small>
+            <small class="text-body-secondary">Share on <a href="https://www.facebook.com/" class="link-underline-dark">Facebook</a></small>
+            <small class="px-3 text-body-secondary">
+                <a href="{{ url_for('edit', id=note.id) }}" class="link-underline-dark">Edit</a>
+            </small>
         </p>
     </div>
 </div>

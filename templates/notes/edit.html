@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Update Note
+{% endblock %}
+
+{% block content %}
+
+<div class="notes py-5 bg-body-tertiary border-top">
+    <div class="container">
+        <div class="row justify-content-md-center">
+
+            <div class="col-12 col-md-10 col-lg-7 mb-5">
+                <h2 class="mb-3">Update Note</h2>
+
+                {% with buttonText = 'Update Note' %}
+                    {% include 'notes/_form.html' %}
+                {% endwith %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
