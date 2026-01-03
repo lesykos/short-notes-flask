@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask, render_template
+from flask import Flask, request, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -33,8 +33,14 @@ def index():
     notes = db.session.execute(db.select(Note).order_by(Note.published_at)).scalars()
     return render_template("index.html", notes = notes)
 
-@app.route("/new")
+@app.route("/new", methods=["GET", "POST"])
 def new():
+    if request.method == "POST":
+        note = Note(content=request.form["content"])
+        db.session.add(note)
+        db.session.commit()
+        return redirect(url_for("index"))
+
     return render_template("notes/new.html")
 
 if __name__ == "__main__":
