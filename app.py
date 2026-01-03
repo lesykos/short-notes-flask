@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -6,7 +6,11 @@ app = Flask(__name__)
 # which URL should call the associated function.
 @app.route("/")
 def index():
-    return "Hello!"
+    return render_template("index.html")
+
+@app.route("/new")
+def new():
+    return render_template("notes/new.html")
 
 if __name__ == "__main__":
     # run the application on the local dev server
