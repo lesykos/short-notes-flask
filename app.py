@@ -19,7 +19,7 @@ class Note(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     content: Mapped[str] = mapped_column(String(200))
     published: Mapped[bool] = mapped_column(nullable=False, insert_default=True)
-    published_at: Mapped[datetime.date] = mapped_column(nullable=False, insert_default=datetime.date.today())
+    published_at: Mapped[datetime.datetime] = mapped_column(nullable=False, insert_default=datetime.datetime.now())
 
     # define the object's class name and key attributes
     # making it easy to understand the object's state in Debugging and Inspection.
@@ -30,7 +30,7 @@ class Note(db.Model):
 # which URL should call the associated function.
 @app.route("/")
 def index():
-    notes = db.session.execute(db.select(Note).order_by(Note.published_at)).scalars()
+    notes = db.session.execute(db.select(Note).order_by(Note.id.desc())).scalars()
     return render_template("index.html", notes = notes)
 
 @app.route("/new", methods=["GET", "POST"])
