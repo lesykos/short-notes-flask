@@ -59,6 +59,14 @@ def edit(id):
 
     return render_template("notes/edit.html", note=note)
 
+@app.route("/delete/<int:id>")
+def delete(id):
+    note = db.get_or_404(Note, id)
+    
+    db.session.delete(note)
+    db.session.commit()
+    return redirect(url_for("index"))
+
 if __name__ == "__main__":
     # run the application on the local dev server
     app.run(debug=True)
