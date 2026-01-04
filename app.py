@@ -1,8 +1,12 @@
 import datetime
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, g, request, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from dotenv import load_dotenv
+
+# reads variables from a .env file and sets them in os.environ
+load_dotenv()
 
 class Base(DeclarativeBase):
   pass
@@ -12,6 +16,8 @@ db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
 # configure the SQLite database, relative to the app instance folder
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+# configure from Environment Variables
+app.config.from_prefixed_env()
 # initialize the app with the extension
 db.init_app(app)
 
@@ -25,6 +31,13 @@ class Note(db.Model):
     # making it easy to understand the object's state in Debugging and Inspection.
     def __repr__(self) -> str:
         return f"Note(id={self.id!r}, published={self.published})"
+
+# register a function to run before each request.
+@app.before_request
+def load_admin():
+    env_admin = app.config["ADMIN_NAME"]
+    cookies_login = request.cookies.get('login')
+    g.is_admin = True if env_admin == cookies_login else False
 
 # a decorator which tells the application
 # which URL should call the associated function.

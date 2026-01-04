@@ -18,9 +18,11 @@
                         <a href="/" class="link-light link-underline-opacity-0">Short Notes</a>
                     </h1>
                     <p class="lead text-body-secondary">My thoughts about what really matters: people, time, kindness, and inner peace. Less noise — more meaning.</p>
+                    {% if g.is_admin %}
                     <div>
                         <a class="btn btn-outline-light" href="{{ url_for('new') }}">Write a new note</a>
                     </div>
+                    {% endif %}
                 </div>
             </div> 
         </section>
