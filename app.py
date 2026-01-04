@@ -1,3 +1,4 @@
+import os
 import datetime
 from flask import Flask, g, request, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -14,10 +15,12 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 app = Flask(__name__)
-# configure the SQLite database, relative to the app instance folder
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+env_config = os.getenv("PROD_APP_SETTINGS", "config.DevelopmentConfig")
+app.config.from_object(env_config)
 # configure from Environment Variables
 app.config.from_prefixed_env()
+# configure the SQLite database, relative to the app instance folder
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 # initialize the app with the extension
 db.init_app(app)
 
@@ -82,4 +85,5 @@ def delete(id):
 
 if __name__ == "__main__":
     # run the application on the local dev server
-    app.run(debug=True)
+    # debug=True
+    app.run()
