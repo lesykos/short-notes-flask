@@ -4,8 +4,10 @@ class Config:
     CSRF_ENABLED = True
     ASSETS_DEBUG = False
 
+
 class ProductionConfig(Config):
     pass
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
