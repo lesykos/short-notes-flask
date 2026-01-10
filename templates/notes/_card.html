@@ -8,9 +8,9 @@
                 <div class="col ps-0">
                     <div class="card-title mb-0">Gary Anderson</div>
                     
-                    <a href="{{ url_for('show', id=note.id) }}" class="link-underline-dark">
+                    <a href="{{ url_for('show', id=note['id']) }}" class="link-underline-dark">
                         <small class="d-block text-body-secondary">
-                            {{ note.published_at.strftime("%d %B %Y") }}
+                            {{ note["published_at_pretty"] }}
                         </small>
                     </a>
                 </div>
@@ -21,7 +21,7 @@
     <div class="card-body">
         <figure>
             <blockquote class="blockquote mt-2">
-                <p>{{ note.content }}</p>
+                <p>{{ note["content"] }}</p>
             </blockquote>
         </figure>
 
@@ -29,7 +29,7 @@
             <small class="text-body-secondary">Share on <a href="https://www.facebook.com/" class="link-underline-dark">Facebook</a></small>
             {% if g.is_admin %}
             <small class="px-3 text-body-secondary">
-                <a href="{{ url_for('edit', id=note.id) }}" class="link-underline-dark">Edit</a>
+                <a href="{{ url_for('edit', id=note['id']) }}" class="link-underline-dark">Edit</a>
             </small>
             {% endif %}
         </p>
