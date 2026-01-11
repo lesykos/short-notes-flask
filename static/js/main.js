@@ -1,3 +1,6 @@
+const toastElList = document.querySelectorAll('.toast')
+const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
+
 // Count characters of textarea in Notes form 
 const noteTextarea = document.getElementById("note-textarea");
 const countSpan = document.getElementById("note-chars-count");
