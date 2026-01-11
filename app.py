@@ -1,13 +1,13 @@
 import os
 import datetime
-from flask import Flask, g, request, redirect, url_for, render_template
+from flask import Flask, g, request, abort, redirect, url_for, render_template
 from dotenv import load_dotenv
 from supabase import create_client, Client
 
 # reads variables from a .env file and sets them in os.environ
 load_dotenv()
 
-
+# Create an application instance - an object of class Flask
 app = Flask(__name__)
 
 # Load the configuration from the config.DevelopmentConfig module
@@ -60,8 +60,12 @@ def index():
 @app.route("/note/<int:id>")
 def show(id):
     supabase_response = (
-        supabase.table("notes").select("*").eq("id", id).limit(1).single().execute()
+        supabase.table("notes").select("*").eq("id", id).maybe_single().execute()
     )
+
+    if supabase_response is None:
+        abort(404)
+
     note = add_pretty_published_at_to_note(supabase_response.data)
     return render_template("notes/show.html", note=note)
 
@@ -107,6 +111,19 @@ def delete(id):
     return redirect(url_for("index"))
 
 
-if __name__ == "__main__":
-    # run the application on the local dev server
-    app.run()
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("error/404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("error/500.html"), 500
+
+
+# Older versions of Flask that did not have the *flask* command
+# required the server to be started by running the application’s main script.
+# Instead we use *flask run* (with *--app hello* if main file isn't named app.py).
+# if __name__ == "__main__":
+#     # run the application on the local dev server
+#     app.run()
