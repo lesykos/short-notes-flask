@@ -25,6 +25,12 @@
             </blockquote>
         </figure>
 
+        <p>
+            {% for tag in note["pretty_tags"] %}
+                <a href="{{ url_for('index_tag', tag=tag) }}" class="badge rounded-pill bg-opacity-25 text-bg-primary link-underline-dark me-2">#{{ tag }}</a>
+            {% endfor %}
+        </p>
+
         <p class="card-text">
             <small class="text-body-secondary">Share on <a href="https://www.facebook.com/" class="link-underline-dark">Facebook</a></small>
             {% if g.is_admin %}

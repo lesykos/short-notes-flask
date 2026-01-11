@@ -45,7 +45,26 @@ def index():
         .execute()
     )
     notes = helpers.add_pretty_published_at_to_notes(supabase_response.data)
+    notes = helpers.add_pretty_tags_to_notes(notes)
     return render_template("index.html", notes=notes)
+
+
+@app.route("/tags/<string:tag>")
+def index_tag(tag):
+    supabase_response = (
+        supabase.table("notes")
+        .select("*")
+        .ilike("tags", f"%{tag}%")
+        .eq("public", "true")
+        .lte("published_at", datetime.datetime.now(datetime.UTC).isoformat())
+        .order("published_at", desc=True)
+        .execute()
+    )
+    notes = helpers.add_pretty_published_at_to_notes(supabase_response.data)
+    notes = helpers.add_pretty_tags_to_notes(notes)
+    page_heading = f"Notes with tag #{tag}"
+
+    return render_template("index.html", notes=notes, page_heading=page_heading)
 
 
 @app.route("/note/<int:id>")
@@ -58,6 +77,7 @@ def show(id):
         abort(404)
 
     note = helpers.add_pretty_published_at_to_note(supabase_response.data)
+    note = helpers.add_pretty_tags_to_note(note)
     return render_template("notes/show.html", note=note)
 
 

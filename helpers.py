@@ -12,3 +12,19 @@ def add_pretty_published_at_to_notes(notes):
     for note in notes:
         add_pretty_published_at_to_note(note)
     return notes
+
+
+def add_pretty_tags_to_note(note):
+    if note["tags"]:
+        note["pretty_tags"] = list(
+            filter(None, [tag.strip() for tag in note["tags"].split(",")])
+        )
+    else:
+        note["pretty_tags"] = []
+    return note
+
+
+def add_pretty_tags_to_notes(notes):
+    for note in notes:
+        add_pretty_tags_to_note(note)
+    return notes
