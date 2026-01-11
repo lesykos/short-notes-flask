@@ -68,13 +68,22 @@ def new():
         content = form.content.data
         tags = form.tags.data
         public = form.public.data
+        published_at = form.published_at.data
 
         supabase.table("notes").insert(
-            {"content": content, "tags": tags, "public": public}
+            {
+                "content": content,
+                "tags": tags,
+                "public": public,
+                "published_at": published_at.isoformat(),  # type: ignore
+            }
         ).execute()
 
         flash("Note created successfully!", "info")
         return redirect(url_for("index"))
+    else:
+        flash("Something went wrong", "error")
+        print(form.errors)
 
     return render_template("notes/new.html", form=form)
 
@@ -92,9 +101,15 @@ def edit(id):
         content = form.content.data
         tags = form.tags.data
         public = form.public.data
+        published_at = form.published_at.data
 
         supabase.table("notes").update(
-            {"content": content, "tags": tags, "public": public}
+            {
+                "content": content,
+                "tags": tags,
+                "public": public,
+                "published_at": published_at.isoformat(),  # type: ignore
+            }
         ).eq("id", id).execute()
 
         flash("Note updated successfully!", "info")

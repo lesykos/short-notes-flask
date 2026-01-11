@@ -27,6 +27,16 @@
   </div>
 
   <div class="mb-4">
+    <div class="input-group input-group-lg">
+      <span class="input-group-text">Publication date:</span>
+      {{ form.published_at(
+                class="form-control"
+              )
+      }}
+    </div>
+  </div>
+
+  <div class="mb-4">
     {% for subfield in form.public %}
       <div class="form-check lead">
         {{ subfield(class="form-check-input") }}
@@ -34,6 +44,8 @@
       </div>
     {% endfor %}
   </div>
+
+  <hr class="my-4">
 
   <div class="d-flex justify-content-end">
       {% if note %}
