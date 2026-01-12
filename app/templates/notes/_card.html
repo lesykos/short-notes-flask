@@ -7,8 +7,8 @@
                 </div>
                 <div class="col ps-0">
                     <div class="card-title mb-0">Gary Anderson</div>
-                    
-                    <a href="{{ url_for('show', id=note['id']) }}" class="link-underline-dark">
+
+                    <a href="{{ url_for('notes.show', id=note['id']) }}" class="link-underline-dark">
                         <small class="d-block text-body-secondary">
                             {{ note["published_at_pretty"] }}
                         </small>
@@ -27,7 +27,7 @@
 
         <p>
             {% for tag in note["pretty_tags"] %}
-                <a href="{{ url_for('index_tag', tag=tag) }}" class="badge rounded-pill bg-opacity-25 text-bg-primary link-underline-dark me-2">#{{ tag }}</a>
+                <a href="{{ url_for('tags.index', tag=tag) }}" class="badge rounded-pill bg-opacity-25 text-bg-primary link-underline-dark me-2">#{{ tag }}</a>
             {% endfor %}
         </p>
 
@@ -35,7 +35,7 @@
             <small class="text-body-secondary">Share on <a href="https://www.facebook.com/" class="link-underline-dark">Facebook</a></small>
             {% if g.is_admin %}
             <small class="px-3 text-body-secondary">
-                <a href="{{ url_for('edit', id=note['id']) }}" class="link-underline-dark">Edit</a>
+                <a href="{{ url_for('notes.edit', id=note['id']) }}" class="link-underline-dark">Edit</a>
             </small>
             {% endif %}
         </p>

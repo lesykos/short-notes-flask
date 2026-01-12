@@ -1,13 +1,18 @@
+# Short Notes App
+
+- The Flask application lives inside a package named **app**.
+- **notes.py** defines the Flask application instance.
+- config.py stores the configuration settings.
+
 ### Start the project:
 
 1. `python -m venv venv`
 2. `.\venv\Scripts\activate`
 3. `pip install -r requirements.txt`
 4. Create `.env` file
-
 5. Run the project:
-`flask run --debug`
-6. Open website on `http://127.0.0.1:5000`
+`flask --app notes run --debug`
+6. Open website on `127.0.0.1:5000`
 
 
 ### .env file:
