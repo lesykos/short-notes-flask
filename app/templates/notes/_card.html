@@ -33,7 +33,7 @@
 
         <p class="card-text">
             <small class="text-body-secondary">Share on <a href="https://www.facebook.com/" class="link-underline-dark">Facebook</a></small>
-            {% if g.is_admin %}
+            {% if g.current_user_is_admin %}
             <small class="px-3 text-body-secondary">
                 <a href="{{ url_for('notes.edit', id=note['id']) }}" class="link-underline-dark">Edit</a>
             </small>

@@ -19,17 +19,18 @@ from app.notes import notes
 
 # register a function to run before each request.
 @notes.before_request
-def load_admin():
+def load_user():
     env_admin = current_app.config["ADMIN_NAME"]
     cookies_login = request.cookies.get("login")
-    g.is_admin = True if env_admin == cookies_login else False
+    g.current_user = cookies_login
+    g.current_user_is_admin = True if env_admin == cookies_login else False
 
 
-def login_required(view):
+def admin_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.is_admin is False:
-            return redirect(url_for(".index"))
+        if not g.current_user_is_admin:
+            return redirect(url_for("main.index"))
 
         return view(**kwargs)
 
@@ -52,7 +53,7 @@ def show(id):
 
 
 @notes.route("/new", methods=["GET", "POST"])
-@login_required
+@admin_required
 def new():
     form = NoteForm()
     supabase_client = current_app.config["SUPABASE_CLIENT"]
@@ -79,7 +80,7 @@ def new():
 
 
 @notes.route("/edit/<int:id>", methods=["GET", "POST"])
-@login_required
+@admin_required
 def edit(id):
     supabase_client = current_app.config["SUPABASE_CLIENT"]
     supabase_response = (
@@ -111,7 +112,7 @@ def edit(id):
 
 
 @notes.route("/delete/<int:id>")
-@login_required
+@admin_required
 def delete(id):
     supabase_client = current_app.config["SUPABASE_CLIENT"]
     supabase_client.table("notes").delete().eq("id", id).execute()

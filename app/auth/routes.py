@@ -1,6 +1,24 @@
-from flask import render_template, redirect, url_for, flash, make_response
+from flask import (
+    g,
+    current_app,
+    request,
+    render_template,
+    redirect,
+    url_for,
+    flash,
+    make_response,
+)
 from . import auth
 from .forms import LoginForm
+
+
+# register a function to run before each request.
+@auth.before_request
+def load_user():
+    env_admin = current_app.config["ADMIN_NAME"]
+    cookies_login = request.cookies.get("login")
+    g.current_user = cookies_login
+    g.current_user_is_admin = True if env_admin == cookies_login else False
 
 
 @auth.route("/login", methods=["GET", "POST"])
@@ -18,6 +36,7 @@ def login():
 
 @auth.route("/logout")
 def logout():
+    flash("You have been logged out.", "info")
     resp = make_response(redirect(url_for("main.index")))
     resp.delete_cookie("login")
     return resp
