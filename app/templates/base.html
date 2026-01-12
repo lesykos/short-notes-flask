@@ -10,20 +10,17 @@
     {% endblock head %}
 </head>
 <body>
+    {% include 'helpers/_header.html' %}
+
     <main class="min-vh-100">
         {% include 'helpers/_toasts.html' %}
-        <section class="container py-5 text-center ">
+        <section class="container py-4 text-center ">
             <div class="row py-lg-3">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">
                         <a href="/" class="link-light link-underline-opacity-0">Short Notes</a>
                     </h1>
-                    <p class="lead text-body-secondary">My thoughts about what really matters: people, time, kindness, and inner peace. Less noise — more meaning.</p>
-                    {% if g.is_admin %}
-                    <div>
-                        <a class="btn btn-outline-light" href="{{ url_for('notes.new') }}">Write a new note</a>
-                    </div>
-                    {% endif %}
+                    <p class="lead text-body-secondary mb-0">My thoughts about what really matters: people, time, kindness, and inner peace. Less noise — more meaning.</p>
                 </div>
             </div> 
         </section>

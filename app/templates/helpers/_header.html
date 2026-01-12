@@ -1,0 +1,29 @@
+<header class="navbar bg-body-tertiary border-bottom">
+    <div class="container d-flex flex-wrap">
+        <a class="navbar-brand" href="/">Short Notes</a>
+        <ul class="nav me-auto">
+            <li class="nav-item"><a href="{{ url_for('main.index') }}" class="nav-link link-body-emphasis px-2">Home</a></li>
+            <li class="nav-item"><a href="{{ url_for('tags.index') }}" class="nav-link link-body-emphasis px-2">Tags</a></li>
+            {% if g.current_user_is_admin %}
+                <li class="nav-item">
+                    <a href="{{ url_for('notes.new') }}" class="nav-link link-body-emphasis px-2">
+                        New note
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="nav">
+            <li class="nav-item">
+                {% if g.current_user %}
+                    <a href="{{ url_for('auth.logout') }}" class="nav-link link-body-emphasis px-2">
+                        Log out
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="nav-link link-body-emphasis px-2">
+                        Log in
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</header>
