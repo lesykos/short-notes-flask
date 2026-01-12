@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+All tags
+{% endblock %}
+
+{% block content %}
+    <div class="min-vh-100 py-5 bg-body-tertiary border-top">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-12 col-md-7 col-lg-5 mb-3">                
+                    <h2>All tags</h2>
+                    <div class="list-group">
+                    {% for tag in tags %}
+                        <a href="{{ url_for('tags.show', tag=tag) }}" class="list-group-item list-group-item-action">{{ tag }}</a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

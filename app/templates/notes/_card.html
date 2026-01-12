@@ -27,7 +27,7 @@
 
         <p>
             {% for tag in note["pretty_tags"] %}
-                <a href="{{ url_for('tags.index', tag=tag) }}" class="badge rounded-pill bg-opacity-25 text-bg-primary link-underline-dark me-2">#{{ tag }}</a>
+                <a href="{{ url_for('tags.show', tag=tag) }}" class="badge rounded-pill bg-opacity-25 text-bg-primary link-underline-dark me-2">#{{ tag }}</a>
             {% endfor %}
         </p>
 

@@ -28,3 +28,12 @@ def add_pretty_tags_to_notes(notes):
     for note in notes:
         add_pretty_tags_to_note(note)
     return notes
+
+
+def get_all_tags_from_notes(notes):
+    all_tags = set()
+    for note in notes:
+        if note["tags"]:
+            tags = [tag.strip() for tag in note["tags"].split(",")]
+            all_tags.update(filter(None, tags))
+    return sorted(all_tags)
