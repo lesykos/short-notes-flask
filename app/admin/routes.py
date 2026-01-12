@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, make_response
 from . import admin
 from .forms import LoginForm
 
@@ -8,8 +8,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
-        # TODO: Set cookie or session here
         flash(f"Hello, {username}!", "info")
-        return redirect(url_for("main.index"))
+        resp = make_response(redirect(url_for("main.index")))
+        resp.set_cookie("login", username)  # type: ignore
+        return resp
 
     return render_template("admin/login.html", form=form)
