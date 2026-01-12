@@ -14,3 +14,10 @@ def login():
         return resp
 
     return render_template("auth/login.html", form=form)
+
+
+@auth.route("/logout")
+def logout():
+    resp = make_response(redirect(url_for("main.index")))
+    resp.delete_cookie("login")
+    return resp
