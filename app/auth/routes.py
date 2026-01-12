@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, flash, make_response
-from . import admin
+from . import auth
 from .forms import LoginForm
 
 
-@admin.route("/login", methods=["GET", "POST"])
+@auth.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -13,4 +13,4 @@ def login():
         resp.set_cookie("login", username)  # type: ignore
         return resp
 
-    return render_template("admin/login.html", form=form)
+    return render_template("auth/login.html", form=form)

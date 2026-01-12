@@ -33,12 +33,12 @@ def create_app(config_name):
     from app.main import main as main_blueprint
     from app.notes import notes as notes_blueprint
     from app.tags import tags as tags_blueprint
-    from app.admin import admin as admin_blueprint
+    from app.auth import auth as auth_blueprint
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(notes_blueprint)
     app.register_blueprint(tags_blueprint)
-    app.register_blueprint(admin_blueprint)
+    app.register_blueprint(auth_blueprint)
 
     app.config["SUPABASE_CLIENT"] = supabase
 
