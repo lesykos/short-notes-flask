@@ -24,5 +24,17 @@ SUPABASE_URL=
 SUPABASE_KEY=
 ```
 
-### To Do
-1. 
+### Routes:
+```
+Endpoint      Methods    Rule
+------------  ---------  -----------------------
+main.index    GET        /
+auth.login    GET, POST  /auth/login
+auth.logout   GET        /auth/logout
+notes.new     GET, POST  /notes/new
+notes.edit    GET, POST  /notes/edit/<int:id>
+notes.show    GET        /notes/<int:id>
+notes.delete  GET        /notes/delete/<int:id>
+tags.index    GET        /tags/
+tags.show     GET        /tags/<string:tag>
+```
