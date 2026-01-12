@@ -1,19 +1,11 @@
 import datetime
-from flask import g, current_app, request, render_template
+from flask import current_app, render_template
 from app.notes.helpers import (
     add_pretty_published_at_to_notes,
     add_pretty_tags_to_notes,
     get_all_tags_from_notes,
 )
 from app.tags import tags
-
-
-@tags.before_request
-def load_user():
-    env_admin = current_app.config["ADMIN_NAME"]
-    cookies_login = request.cookies.get("login")
-    g.current_user = cookies_login
-    g.current_user_is_admin = True if env_admin == cookies_login else False
 
 
 @tags.route("/")

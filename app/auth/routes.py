@@ -12,8 +12,9 @@ from . import auth
 from .forms import LoginForm
 
 
-# register a function to run before each request.
-@auth.before_request
+# register a function that runs before the view function,
+# no matter what URL is requested.
+@auth.before_app_request
 def load_user():
     env_admin = current_app.config["ADMIN_NAME"]
     cookies_login = request.cookies.get("login")
